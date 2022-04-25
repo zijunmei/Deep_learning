@@ -13,7 +13,7 @@ from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
 from tensorflow.keras.layers import GlobalAveragePooling2D, GlobalMaxPooling2D, Reshape, Dense, multiply, Permute, Concatenate, Conv2D, Add, Activation, Lambda
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
-# necessary for my 3080 GPU to ensure it performs as expected and doesn't weirdly run out of memory
+
 
 config = tf.compat.v1.ConfigProto(gpu_options = 
                          tf.compat.v1.GPUOptions(per_process_gpu_memory_fraction=0.8)
@@ -144,7 +144,7 @@ for layer_loc in [3,6,10,14,18]:
 
   # define new model with CBAM block
   new_model= Model(model_copy.input,xl)
-  """
+  
   # compile new model
   new_model.compile(
     optimizer='adam',
@@ -160,8 +160,8 @@ for layer_loc in [3,6,10,14,18]:
                 epochs=10)
   
   new_model.save('./models/cbam-layer-{}'.format(layer_loc))
-  # new_model.summary()
-"""
+  new_model.summary()
+
 cbam_location = 0
 for layer in new_model.layers:
     # print('{} {}'.format(cbam_location, layer.name))
